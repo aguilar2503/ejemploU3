@@ -49,12 +49,44 @@ const findAll = (req, res) => {
         });
 }
 
+const Actualizar = (req, res) =>{
+    const {id} = req.params;
+    const product = req.body;
+
+    _prod.findByIdAndUpdate(id, product) 
+      .then(data => {
+          res.status(200);
+          res.json({msg:"Exito"});
+      })  
+      .catch(err=> {
+        res.status(404);
+        res.json({msg:"Error"});
+      })
+    }
+const Eliminar = (req, res) =>{
+        const {id} = req.params;
+    
+    _prod.findByIdAndRemove(id) 
+          .then(data => {
+              res.status(200);
+              res.json({msg:"Exito"});
+          })  
+          .catch(err=> {
+            res.status(404);
+            res.json({msg:"Error"});
+          })
+        }
+    
+      
+
 
 module.exports = (Producto) => {
     _prod = Producto;
     return ({
         createProducto,
-        findAll
+        findAll,
+        Actualizar,
+        Eliminar
         
     });
 }
